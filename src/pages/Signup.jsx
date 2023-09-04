@@ -1,40 +1,40 @@
-import { useState } from 'react';
-import { useAuthContext } from './useAuthContext';
+import { useForm } from "react-hook-form";
+import { useSignup } from "../hooks/useSignup";
 
-export const useSignup = () => {
-    const [error, setError] = useState(null);
-    const [loading, setLoading] = useState(false);
-    const { dispatch } = useAuthContext();
+const Signup = () => {
+    const { register, handleSubmit, reset, formState: { errors } } = useForm();
+    const { signup, loading, error } = useSignup();
 
-    const signup = async (email, password) => {
-        setLoading(true);
-        setError(null);
+    const onSubmit = async data => {
+        await signup(data.email, data.password);
+        reset({ email: '', password: '' });
+    };
 
-        try {
-            const response = await fetch('http://localhost:4000/api/user/signup', {
-                method: 'POST',
-                headers: {
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify({ email, password })
-            });
+    return (
+        <form onSubmit={handleSubmit(onSubmit)}>
+            <h3> Sign Up </h3>
+            <input 
+                type="email" 
+                {...register("email", { required: 'required field' })}
+                placeholder="email"
+                autoComplete="off"
+            />
+            <p>{ errors.email?.message }</p>
+            <input 
+                type="password" 
+                {...register("password", { required: 'required field' })}
+                placeholder="password"
+            />
+            <p>{ errors.password?.message }</p>
+            <button 
+                type="submit"
+                disabled={loading}
+            > 
+               Sign Up 
+            </button>
+            {error && <p>{ error }</p>}
+        </form>
+    );
+}
 
-            const json = await response.json();
-
-            if (!response.ok) {
-                setLoading(false);
-                setError(json.error);
-            }
-
-            if (response.ok) {
-                localStorage.setItem('user', JSON.stringify(json));
-                dispatch({ type: 'LOGIN', payload: json });
-                setLoading(false);
-            }
-        } catch (err) {
-            console.log(err);
-        }
-    }
-
-    return { signup, loading, error };
-};
+export default Signup;
