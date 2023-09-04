@@ -1,9 +1,11 @@
 import { useForm } from "react-hook-form"
 import { useEntryContext } from "../hooks/useEntryContext"
+import { useAuthContext } from "../context/AuthContext"
 
 const EntryForm = () => {
     const { register, handleSubmit, setError, reset, formState: {errors} } = useForm()
     const { dispatch } = useEntryContext()
+    const { user } = useAuthContext()
 
     const onSubmit = async(data) => {
         const entry = {
@@ -17,7 +19,8 @@ const EntryForm = () => {
                 method: 'POST',
                 body: JSON.stringify(entry),
                 headers: {
-                    'Content-Type': 'application/json'
+                    'Content-Type': 'application/json',
+                    'Authorization': `Bearer ${user.token}`
                 }
             })
             const body = await response.text()
