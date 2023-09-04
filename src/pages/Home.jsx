@@ -32,16 +32,14 @@ const Home = () => {
         <>
             <div>
                 <h1> POSTS </h1>
-
-                <ul>
+                <div>
                     {/* map entries to show them on screen*/}
                     {/* 1. check if there are any entries, 
                         2. once entry is there, map it in a component! */}
                     {entries && entries.map(entry => (
                         <EntryCard key={entry._id} entry={entry} />
-                    )
-                        )}
-                </ul>
+                    ))}
+                </div>
             </div>
             <div>
                 <EntryForm />

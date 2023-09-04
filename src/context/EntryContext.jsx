@@ -17,6 +17,19 @@ export const entryReducer = (state, action) => {
             return {
                 entries: [action.payload, ...state.entries]
             }
+        //  update
+        case 'UPDATE_ENTRY':
+            // find post
+            const updateIndex = state.entries.findIndex(entry =>
+                entry._id === action.payload._id)
+            // new array of updated post
+            const updatedEntry = [...state.entries]
+            if(updateIndex !== -1) {
+                updatedEntry[updateIndex] = action.payload
+            }
+            return {
+                entries: updatedEntry
+            }
         // take post, filter by id - delete
         case 'DELETE_ENTRY':
             return {

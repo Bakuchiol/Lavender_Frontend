@@ -7,8 +7,8 @@ const EntryCard = ({ entry }) => {
     const { dispatch } = useEntryContext()
     const { user } = useAuthContext()
 
-    // function to post
-    const handleClick = async() => {
+    // function to delete
+    const deleteEntry = async() => {
         const response = await fetch(`http://localhost:4000/api/journal/${entry._id}`,{
              method: 'DELETE',
              headers: {
@@ -25,21 +25,25 @@ const EntryCard = ({ entry }) => {
     }
 
     return (
-        <li>
-            <span>
-                {/* linl to specific post */}
+        <div>
+            <div>
+                {/* link to specific post */}
                 <h2> 
                     <Link to={`/api/journal/${entry._id}`}>{entry.title}</Link>
                 </h2>
                 {/* icon for delete */}
-                <span
-                    onClick={handleClick}
-                >delete icon here</span>
-            </span>
+                <div>
+                    <span
+                        onClick={deleteEntry}
+                        >delete icon here
+                    </span>
+                    
+                </div>
+                <div></div>
+            </div>    
             <div>{format(new Date(entry.date), 'MMMM d, y')}</div>
             <p>{entry.content.substring(0, 200) + ' ...'}</p> {/* preview of entry? 200 chars */}
-        </li>
-
+        </div>
     )
 }
 
