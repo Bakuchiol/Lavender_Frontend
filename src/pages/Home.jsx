@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react"
+import EntryCard from "../components/EntryCard"
 
 const Home = () => {
     const [entries, setEntries] = useState(null)
