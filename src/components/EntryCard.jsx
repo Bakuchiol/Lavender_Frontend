@@ -1,4 +1,5 @@
 import { Link } from "react-router-dom"
+import { format } from 'date-fns'
 import { useEntryContext } from "../hooks/useEntryContext"
 import { useAuthContext } from "../hooks/useAuthContext"
 
@@ -35,7 +36,7 @@ const EntryCard = ({ entry }) => {
                     onClick={handleClick}
                 >delete icon here</span>
             </span>
-            <div>{entry.date}</div>
+            <div>{format(new Date(entry.date), 'MMMM d, y')}</div>
             <p>{entry.content.substring(0, 200) + ' ...'}</p> {/* preview of entry? 200 chars */}
         </li>
 
