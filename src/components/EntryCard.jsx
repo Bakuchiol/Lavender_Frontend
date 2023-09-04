@@ -1,14 +1,19 @@
 import { Link } from "react-router-dom"
 import { useEntryContext } from "../hooks/useEntryContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const EntryCard = ({ entry }) => {
     const { dispatch } = useEntryContext()
+    const { user } = useAuthContext()
 
     // function to post
     const handleClick = async() => {
-        const response = await fetch(`http://localhost:4000/api/journal/${entry._id}`,
-            { method: 'DELETE' }
-        )
+        const response = await fetch(`http://localhost:4000/api/journal/${entry._id}`,{
+             method: 'DELETE',
+             headers: {
+                'Authorization': `Bearer ${user.token}`
+             }
+            })
         const body = await response.text()
         const json = JSON.parse(body)
 

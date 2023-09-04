@@ -1,6 +1,6 @@
 import { useForm } from "react-hook-form"
 import { useEntryContext } from "../hooks/useEntryContext"
-import { useAuthContext } from "../context/AuthContext"
+import { useAuthContext } from "../hooks/useAuthContext"
 
 const EntryForm = () => {
     const { register, handleSubmit, setError, reset, formState: {errors} } = useForm()
