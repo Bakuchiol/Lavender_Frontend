@@ -1,8 +1,11 @@
 import { Link } from "react-router-dom";
 import { useAuthContext } from "../hooks/useAuthContext";
+import { useLogout } fo
 
 const NavBar = () => {
     const {user} = useAuthContext()
+
+
     return (
         <header>
             <nav>
@@ -17,7 +20,7 @@ const NavBar = () => {
             {user ?(
                 <div>
                     <span>{user.email}</span>
-                    <button>
+                    <button onClick={handleClick}>
                         Logout
                     </button>
                 </div>
