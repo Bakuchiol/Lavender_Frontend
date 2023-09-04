@@ -1,9 +1,11 @@
-import { useState, useEffect } from "react"
+import { useEffect } from "react"
+import { useEntryContext } from "../hooks/useEntryContext.js"
 import EntryCard from "../components/EntryCard"
 import EntryForm from "../components/EntryForm"
 
 const Home = () => {
-    const [entries, setEntries] = useState(null)
+    // const [entries, setEntries] = useState(null)
+    const { entries, dispatch } = useEntryContext()
 
     useEffect(() => {
         const fetchEntries = async() => {
@@ -12,7 +14,7 @@ const Home = () => {
 
             // status 200
             if(response.ok){
-                setEntries(json)
+                dispatch({ type: 'SET_ENTRY', payload: json}) // changed global state
             }
         }
         // run

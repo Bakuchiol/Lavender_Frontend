@@ -8,17 +8,17 @@ export const EntryContext = createContext();
 export const entryReducer = (state, action) => {
     switch(action.type){
         // return post as new state - returns wahtever the action's payload is
-        case 'SET_POST':
+        case 'SET_ENTRY':
             return {
                 entries: action.payload
             }
         // return new state, cant mutate
-        case 'CREATE_POST':
+        case 'CREATE_ENTRY':
             return {
                 entries: [action.payload, ...state.entries]
             }
         // take post, filter by id - delete
-        case 'DELETE_POST':
+        case 'DELETE_ENTRY':
             return {
                 entries : state.entries.filter(entry => entry._id !== action.payload._id)
             }
