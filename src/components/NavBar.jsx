@@ -1,6 +1,8 @@
 import { Link } from "react-router-dom";
+import { useAuthContext } from "../hooks/useAuthContext";
 
 const NavBar = () => {
+    const {user} = useAuthContext()
     return (
         <header>
             <nav>
@@ -12,8 +14,19 @@ const NavBar = () => {
             </nav>
 
             <span> Lavender Journal </span>
-
-            <div></div>
+            {user ?(
+                <div>
+                    <span>{user.email}</span>
+                    <button>
+                        Logout
+                    </button>
+                </div>
+            ):(
+                <div>
+                    <Link to="/api/login">Login</Link>
+                    <Link to="/api/signup">Signup</Link>
+                </div>
+            )}
 
         </header>
     )
