@@ -19,7 +19,7 @@ const Home = () => {
         }
         // run
         fetchEntries()
-    }, [])
+    }, [dispatch]) //set as dependency
 
     return (
         <>

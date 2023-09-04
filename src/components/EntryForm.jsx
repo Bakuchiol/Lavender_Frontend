@@ -1,7 +1,9 @@
 import { useForm } from "react-hook-form"
+import { useEntryContext } from "../hooks/useEntryContext"
 
 const EntryForm = () => {
     const { register, handleSubmit, setError, reset, formState: {errors} } = useForm()
+    const { dispatch } = useEntryContext()
 
     const onSubmit = async(data) => {
         const entry = {
@@ -30,6 +32,7 @@ const EntryForm = () => {
                     date: '',
                     content: ''
                 })
+                dispatch({ type: 'CREATE_ENTRY', payload: newEntry}) //update as soon as new entry submitted
                 console.log('created new entry', newEntry); // sanity check!
             }
         } catch (err) {
