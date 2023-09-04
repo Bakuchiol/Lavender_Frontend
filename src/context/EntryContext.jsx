@@ -20,10 +20,23 @@ export const entryReducer = (state, action) => {
         // take post, filter by id - delete
         case 'DELETE_POST':
             return {
-                entries : state.entries.filter(entry => entry._id != action.payload._id)
+                entries : state.entries.filter(entry => entry._id !== action.payload._id)
             }
         // default state
         default:
             return state
     }
+}
+
+export const EntryContextProvider = ({children}) => {
+    // dispatch - dispatch actions to affect state in context
+    const [state, dispatch] = useReducer(entryReducer, { 
+        entries : null
+    })
+
+    return (
+        <EntryContext.Provider value={{...state, dispatch}}>
+            {children}
+        </EntryContext.Provider>
+    )
 }
