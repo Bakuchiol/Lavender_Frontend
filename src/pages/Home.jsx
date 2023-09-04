@@ -1,15 +1,22 @@
 import { useEffect } from "react"
 import { useEntryContext } from "../hooks/useEntryContext.js"
+import { useAuthContext } from "../hooks/useAuthContext.js"
 import EntryCard from "../components/EntryCard"
 import EntryForm from "../components/EntryForm"
 
 const Home = () => {
     // const [entries, setEntries] = useState(null)
     const { entries, dispatch } = useEntryContext()
+    const { user } = useAuthContext()
 
     useEffect(() => {
         const fetchEntries = async() => {
-            const response = await fetch('http://localhost:4000/api/journal')
+            const response = await fetch('http://localhost:4000/api/journal',{
+                headers: {
+                    'Authorization': `Bearer ${user.token}`
+                }
+            })
+                
             const json = await response.json()
 
             // status 200
@@ -18,8 +25,8 @@ const Home = () => {
             }
         }
         // run
-        fetchEntries()
-    }, [dispatch]) //set as dependency
+        if(user) fetchEntries()
+    }, [user, dispatch]) //set as dependency
 
     return (
         <>
