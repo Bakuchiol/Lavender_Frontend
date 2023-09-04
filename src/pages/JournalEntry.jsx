@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { format } from "date-fns";
 import { useParams } from "react-router-dom"; //param passed in url via :id
 import { useAuthContext } from "../hooks/useAuthContext";
 
@@ -33,7 +34,7 @@ const JournalEntry = () => {
     return(
         <div>
             <h2>{entry.title}</h2>
-            <div>{entry.date}</div>
+            <div>{format(new Date(entry.date), 'MMMM d, y')}</div>
             <p>{entry.content}</p>
         </div>
     )
