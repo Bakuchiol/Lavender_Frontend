@@ -1,7 +1,9 @@
 import { Link } from "react-router-dom"
-
+import { useEntryContext } from "../hooks/useEntryContext"
 
 const EntryCard = ({ entry }) => {
+    const { dispatch } = useEntryContext()
+
     // function to post
     const handleClick = async() => {
         const response = await fetch(`http://localhost:4000/api/journal/${entry._id}`,
@@ -11,6 +13,7 @@ const EntryCard = ({ entry }) => {
         const json = JSON.parse(body)
 
         if(response.ok){
+            dispatch({type: 'DELETE_ENTRY', payload: json})
             console.log('delete success', json);
         }
     }
