@@ -8,6 +8,9 @@ export const useLogin = () => {
     const{dispatch} = useAuthContext()
 
     const login = async(email, password) => {
+        setLoading(true);
+        setError(null);
+        
         try {
             setLoading(true)
             const response = await fetch('http://localhost:4000/api/journal/login',{
