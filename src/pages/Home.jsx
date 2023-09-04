@@ -1,5 +1,6 @@
 import { useState, useEffect } from "react"
 import EntryCard from "../components/EntryCard"
+import EntryForm from "../components/EntryForm"
 
 const Home = () => {
     const [entries, setEntries] = useState(null)
@@ -34,7 +35,7 @@ const Home = () => {
                 </ul>
             </div>
             <div>
-
+                <EntryForm />
             </div>
         </>
     )

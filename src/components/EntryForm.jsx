@@ -11,7 +11,27 @@ const EntryForm = () => {
         }
 
         try {
-            
+            const response = await fetch('http://localhost:4000/api/journal', {
+                method: 'POST',
+                body: JSON.stringify(entry),
+                headers: {
+                    'Content-Type': 'application/json'
+                }
+            })
+            const body = await response.text()
+            const newEntry = JSON.parse(body)
+
+            if(!response.ok){
+                setError('something went wrong', {type: 400})
+            }
+            if(response.ok){
+                reset({
+                    title: '',
+                    date: '',
+                    content: ''
+                })
+                console.log('created new entry', newEntry); // sanity check!
+            }
         } catch (err) {
             console.log(err);
         }
@@ -38,7 +58,7 @@ const EntryForm = () => {
                 <p>{errors.date?.message}</p>
                 <textarea
                     rows="25"
-                    {...register("content"), {required: 'required field'}}
+                    {...register("content", {required: 'required field'})}
                     placeholder="Enter Journal Entry"
                 />
                 <p>{errors.content?.message}</p>
